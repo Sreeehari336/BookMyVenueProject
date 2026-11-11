@@ -1,0 +1,10 @@
+﻿.env
+.env.*
+!.env.example
+**/__pycache__/
+*.py[cod]
+backend/app/secretkey.py
+**/node_modules/
+**/dist/
+.venv/
+venv/

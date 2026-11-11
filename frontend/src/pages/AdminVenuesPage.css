@@ -1,0 +1,221 @@
+.admin-venues-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  color: #172554;
+}
+
+.admin-venues-navbar {
+  min-height: 72px;
+  padding: 0 7%;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.admin-venues-navbar strong {
+  font-size: 22px;
+}
+
+.admin-venues-navbar nav,
+.admin-venue-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-venues-navbar button,
+.admin-venues-page button {
+  padding: 9px 13px;
+  border: 1px solid #dbe2f0;
+  border-radius: 8px;
+  background: #fff;
+  color: #172554;
+  cursor: pointer;
+}
+
+.admin-venues-page button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.admin-venues-content {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.admin-venues-heading {
+  margin-bottom: 26px;
+}
+
+.admin-venues-heading p {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.admin-venues-heading h1 {
+  margin: 8px 0;
+  font-size: 32px;
+}
+
+.admin-venues-heading span {
+  color: #64748b;
+}
+
+.admin-venue-create,
+.admin-venues-list {
+  margin-bottom: 24px;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.admin-venue-create h2,
+.admin-venues-list-heading h2 {
+  margin-top: 0;
+}
+
+.admin-venue-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.admin-venue-form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.admin-venue-form-grid input,
+.admin-venue-form-grid select,
+.admin-venues-list-heading input,
+.admin-venues-table input,
+.admin-venue-owner select {
+  min-width: 0;
+  padding: 9px 11px;
+  border: 1px solid #dbe2f0;
+  border-radius: 8px;
+  color: #172554;
+}
+
+.admin-venue-create > button {
+  background: #172554;
+  color: white;
+}
+
+.admin-venues-note {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.admin-venues-list-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.admin-venues-list-heading h2 {
+  margin-bottom: 0;
+}
+
+.admin-venues-table-wrapper {
+  overflow-x: auto;
+}
+
+.admin-venues-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+.admin-venues-table th,
+.admin-venues-table td {
+  padding: 13px 12px;
+  text-align: left;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.admin-venues-table th {
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.admin-venue-owner {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.admin-venue-owner small {
+  color: #64748b;
+}
+
+.admin-venue-owner select {
+  max-width: 190px;
+}
+
+.admin-venue-actions .admin-venue-delete {
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+.admin-venues-message,
+.admin-venues-error {
+  padding: 26px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.admin-venues-error {
+  margin-bottom: 16px;
+  color: #b91c1c;
+}
+
+.admin-venues-success {
+  padding: 12px 16px;
+  color: #166534;
+  background: #dcfce7;
+  border-radius: 8px;
+}
+
+@media (max-width: 700px) {
+  .admin-venues-navbar {
+    padding: 12px 16px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-venues-navbar nav {
+    flex-wrap: wrap;
+  }
+
+  .admin-venues-content {
+    padding: 24px 14px;
+  }
+
+  .admin-venue-create,
+  .admin-venues-list {
+    padding: 16px;
+  }
+
+  .admin-venues-list-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

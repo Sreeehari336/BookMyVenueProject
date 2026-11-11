@@ -1,0 +1,2 @@
+ALTER TABLE reviews
+ADD COLUMN comment VARCHAR(1000) NULL;
