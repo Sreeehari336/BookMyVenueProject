@@ -3,88 +3,50 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-// import { login } from "../services/authService";
 import { setToken } from "../utils/token";
 
 import "./LoginPage.css";
 import { login, getCurrentUser } from "../services/authService";
-
 
 function LoginPage() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-  //   setError("");
-  //   setIsLoading(true);
+    setError("");
+    setIsLoading(true);
 
-  //   try {
-  //     const response = await login({
-  //       email,
-  //       password,
-  //     });
+    try {
+      const response = await login({
+        email,
+        password,
+      });
 
-  //     console.log("Login response:", response);
+      setToken(response["access token"]);
 
-  //     setToken(response["access token"]);
+      const currentUser = await getCurrentUser();
 
-  //     // Temporary redirect until we confirm how your API returns the role.
-  //     navigate("/home");
-
-  //     console.log("Login successful");
-  //   } catch (error) {
-  //     console.error("Login error:", error);
-  //     setError("Invalid email or password.");
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
-  
-const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-
-  setError("");
-  setIsLoading(true);
-
-  try {
-    // 1. Authenticate the user
-    const response = await login({
-      email,
-      password,
-    });
-
-    // 2. Save the access token
-    setToken(response["access token"]);
-
-    // 3. Fetch authenticated user details
-    const currentUser = await getCurrentUser();
-
-    console.log("Logged-in user:", currentUser);
-
-    // 4. Redirect according to the user's role
-    if (currentUser.role === "owner") {
-      navigate("/owner/dashboard");
-    } else if (currentUser.role === "admin") {
-      navigate("/admin/dashboard");
-    } else {
-      navigate("/home");
+      if (currentUser.role === "owner") {
+        navigate("/owner/dashboard");
+      } else if (currentUser.role === "admin") {
+        navigate("/admin/dashboard");
+      } else {
+        navigate("/home");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      setError("Login failed. Please check your credentials and try again.");
+    } finally {
+      setIsLoading(false);
     }
-
-  } catch (error) {
-    console.error("Login error:", error);
-    setError("Login failed. Please check your credentials and try again.");
-  } finally {
-    setIsLoading(false);
-  }
-};
-
+  };
 
   return (
     <div className="login-page">
@@ -99,10 +61,6 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
       </section>
 
       <section className="login-form-section">
-        <button type="button" className="login-sign-in">
-          Sign in
-        </button>
-
         <div className="login-form-container">
           <h2>Welcome Back to BookMyVenue!</h2>
 
@@ -125,14 +83,25 @@ const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
             <div className="login-field">
               <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-                placeholder="Enter your password"
-                required
-              />
+              <div className="password-input-wrapper">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  placeholder="Enter your password"
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-visibility-toggle"
+                  onClick={() => setShowPassword((visible) => !visible)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  aria-pressed={showPassword}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
             </div>
 
             <div className="login-options">

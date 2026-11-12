@@ -217,6 +217,46 @@ function HomePage() {
     setHasSearched(false);
   };
 
+  const handleCategorySelect = async (type: string) => {
+    setSearchLocation("");
+    setSearchType(type);
+    setSearchError("");
+    setHasSearched(true);
+    setIsSearching(true);
+    document.querySelector(".venues-section")?.scrollIntoView({
+      behavior: "smooth",
+    });
+
+    try {
+      const venuesToFilter = loading ? await getAllVenues() : venues;
+      if (loading) {
+        setVenues(venuesToFilter);
+      }
+
+      const searchTerms =
+        type === "Party" ? ["party", "parties"] : [type.toLowerCase()];
+      const results = venuesToFilter.filter((venue) => {
+        const searchableText =
+          `${venue.title} ${venue.description}`.toLowerCase();
+        return searchTerms.some((term) => searchableText.includes(term));
+      });
+      setSearchResults(results);
+    } catch (err) {
+      console.error("Venue category search failed:", err);
+      setSearchResults([]);
+      setSearchError("Unable to search venues. Please try again.");
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  const handleShowAllVenues = () => {
+    handleViewAll();
+    document.querySelector(".venues-section")?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
 
   // --------------------------------------------------
   // Open venue details
@@ -569,7 +609,8 @@ function HomePage() {
 
           <button
             className="category-item"
-            onClick={() => setSearchType("Wedding")}
+            disabled={isSearching}
+            onClick={() => void handleCategorySelect("Wedding")}
           >
             <span className="category-icon">
               💍
@@ -583,7 +624,8 @@ function HomePage() {
 
           <button
             className="category-item"
-            onClick={() => setSearchType("Birthday")}
+            disabled={isSearching}
+            onClick={() => void handleCategorySelect("Birthday")}
           >
             <span className="category-icon">
               🎂
@@ -597,7 +639,8 @@ function HomePage() {
 
           <button
             className="category-item"
-            onClick={() => setSearchType("Corporate")}
+            disabled={isSearching}
+            onClick={() => void handleCategorySelect("Corporate")}
           >
             <span className="category-icon">
               🏢
@@ -611,7 +654,8 @@ function HomePage() {
 
           <button
             className="category-item"
-            onClick={() => setSearchType("Party")}
+            disabled={isSearching}
+            onClick={() => void handleCategorySelect("Party")}
           >
             <span className="category-icon">
               🎉
@@ -625,7 +669,8 @@ function HomePage() {
 
           <button
             className="category-item"
-            onClick={() => setSearchType("Outdoor")}
+            disabled={isSearching}
+            onClick={() => void handleCategorySelect("Outdoor")}
           >
             <span className="category-icon">
               🌿
@@ -639,14 +684,15 @@ function HomePage() {
 
           <button
             className="category-item"
-            onClick={() => setSearchType("")}
+            disabled={isSearching}
+            onClick={handleShowAllVenues}
           >
             <span className="category-icon">
               ✨
             </span>
 
             <span>
-              Other events
+              All venues
             </span>
           </button>
 

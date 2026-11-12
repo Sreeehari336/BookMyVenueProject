@@ -58,19 +58,6 @@
   background: #ffffff;
 }
 
-.login-sign-in {
-  position: absolute;
-  top: 28px;
-  right: 32px;
-  background: #071525;
-  color: white;
-  border: none;
-  border-radius: 999px;
-  padding: 10px 24px;
-  font-size: 13px;
-  cursor: default;
-}
-
 .login-form-container {
   width: 100%;
   max-width: 420px;
@@ -126,6 +113,34 @@
 .login-field input:focus {
   border-color: #243b53;
   box-shadow: 0 0 0 3px rgba(36, 59, 83, 0.08);
+}
+
+.password-input-wrapper {
+  position: relative;
+}
+
+.password-input-wrapper input {
+  padding-right: 72px;
+}
+
+.password-visibility-toggle {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  padding: 6px;
+  border: 0;
+  background: transparent;
+  color: #536273;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.password-visibility-toggle:focus-visible {
+  border-radius: 4px;
+  outline: 2px solid #243b53;
+  outline-offset: 2px;
 }
 
 /* ---------------- OPTIONS ---------------- */
@@ -300,10 +315,5 @@
     width: 100%;
     min-height: auto;
     padding: 60px 25px;
-  }
-
-  .login-sign-in {
-    top: 20px;
-    right: 20px;
   }
 }
