@@ -11,6 +11,7 @@ function RegisterPage() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState<"user" | "owner">("user");
 
   const [isLoading, setIsLoading] = useState(false);
@@ -83,13 +84,6 @@ function RegisterPage() {
 
       {/* RIGHT SIDE */}
       <section className="login-form-section">
-        <button
-          type="button"
-          className="login-sign-in"
-        >
-          Sign up
-        </button>
-
         <div className="login-form-container">
           <h2>Create your account</h2>
 
@@ -146,18 +140,29 @@ function RegisterPage() {
                 Password
               </label>
 
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(event) =>
-                  setPassword(event.target.value)
-                }
-                placeholder="Create a password"
-                minLength={1}
-                maxLength={100}
-                required
-              />
+              <div className="password-input-wrapper">
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(event) =>
+                    setPassword(event.target.value)
+                  }
+                  placeholder="Create a password"
+                  minLength={1}
+                  maxLength={100}
+                  required
+                />
+                <button
+                  type="button"
+                  className="password-visibility-toggle"
+                  onClick={() => setShowPassword((visible) => !visible)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  aria-pressed={showPassword}
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
+              </div>
             </div>
 
             {/* ROLE */}
