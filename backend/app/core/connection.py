@@ -1,9 +1,20 @@
+import os
+
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-engine = create_engine(
+
+load_dotenv()
+
+DATABASE_URL = os.getenv(
+    "DATABASE_URL",
     "mysql+pymysql://root:root@localhost:3306/bookmyvenue",
-    echo=True
 )
+
+if DATABASE_URL.startswith("mysql://"):
+    DATABASE_URL = DATABASE_URL.replace("mysql://", "mysql+pymysql://", 1)
+
+engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 
 SessionLocal = sessionmaker(
     bind=engine,
