@@ -15,7 +15,7 @@ load_dotenv()
 
 hashing_password=PasswordHash.recommended()
 SECRET_KEY=os.getenv("SECRET_KEY")
-ALGORITHM=os.getenv("Algorithm")
+ALGORITHM=os.getenv("ALGORITHM", os.getenv("Algorithm", "HS256"))
 
 
 def hash_password(password:str)-> str:

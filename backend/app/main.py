@@ -1,15 +1,24 @@
-from fastapi import FastAPI, Request
-from api.v1 import users,venues,bookings,admin
+import os
+
+from fastapi import FastAPI
+from api.v1 import users, venues, bookings, admin
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.routing import APIRoute
 
 
 app = FastAPI()
 
+cors_origins = [
+    origin.strip()
+    for origin in os.getenv(
+        "CORS_ORIGINS",
+        "http://localhost:5173",
+    ).split(",")
+    if origin.strip()
+]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -20,9 +29,10 @@ app.include_router(venues.routers)
 app.include_router(bookings.routers)
 app.include_router(admin.routers)
 
+
 @app.get("/")
 def welcome_page():
-    return {"message":"Welcome to Home Page"}
+    return {"message": "Welcome to Home Page"}
 
 
 # @app.post("/createuser")
